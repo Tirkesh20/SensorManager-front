@@ -1,5 +1,5 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { Post } from './../../models/posts.model';
+import { Post } from '../../models/posts.model';
 
 export interface PostsState extends EntityState<Post> {
   count: number;
@@ -14,7 +14,7 @@ export const initialState: PostsState = postsAdapter.getInitialState({
 });
 
 export function sortByName(a: Post, b: Post): number {
-  const compare = a.title.localeCompare(b.title);
+  const compare = a.sensorModel.localeCompare(b.sensorModel);
   if (compare > 0) {
     return -1;
   }

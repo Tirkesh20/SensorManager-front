@@ -1,5 +1,4 @@
 import { CustomSerializer } from './store/router/custom-serializer';
-import { AuthTokenInterceptor } from './services/AuthToken.interceptor';
 import { AuthEffects } from './auth/state/auth.effects';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,16 +11,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { environment } from 'src/environments/environment';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import {Interceptor} from './services/interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     HeaderComponent,
     LoadingSpinnerComponent,
   ],
@@ -41,7 +39,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

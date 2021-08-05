@@ -1,18 +1,18 @@
 import {User} from '../models/user.model';
 import {Observable} from 'rxjs';
-import {AuthResponseData} from '../models/AuthResponseData.model';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {AppState} from '../store/app.state';
 import {Store} from '@ngrx/store';
-import {autoLogout} from '../auth/state/auth.actions';
+import {getToken} from '../auth/state/auth.selector';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const httpOptions ={
   headers:new HttpHeaders({'Content-Type':'application/json'})
 }
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,15 +20,19 @@ export class AuthService {
   private AUTH_API=environment.apiBaseUrl;
   constructor(private http: HttpClient, private store: Store<AppState>) {}
 
-  login(username: string, password: string): Observable<AuthResponseData> {
-    return this.http.post<AuthResponseData>(
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(
       this.AUTH_API+'/api/auth/signin',
       { username, password,returnSecureToken:true },httpOptions,
     );
   }
 
+  public getToken(): any {
+    return window.sessionStorage.getItem(TOKEN_KEY);
+  }
 
-  formatUser(data: AuthResponseData) {
+
+  formatUser(data: any) {
     return new User(
       data.idToken,
       data.localId,
@@ -52,18 +56,15 @@ export class AuthService {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
-  setUserInLocalStorage(user: User) {
-    sessionStorage.setItem('userData', JSON.stringify(user));
 
-  }
-  public saveUser(user: User): void {
+  public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    console.log(this.store.select(getToken));
   }
 
 
   getUserFromLocalStorage() {
-    const userDataString = sessionStorage.getItem('userData');
     const user=window.sessionStorage.getItem(USER_KEY);
     if (user){
       return JSON.parse(user);
@@ -72,6 +73,8 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.removeItem('userData');
+    sessionStorage.removeItem('auth-user');
+    sessionStorage.removeItem('auth-token');
+
   }
 }

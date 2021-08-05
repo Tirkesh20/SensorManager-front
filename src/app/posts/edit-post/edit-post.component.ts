@@ -25,7 +25,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
       if (post) {
         this.post = post;
         this.postForm.patchValue({
-          title: post.title,
+          title: post.sensorModel,
           description: post.description,
         });
       }
@@ -55,8 +55,14 @@ export class EditPostComponent implements OnInit, OnDestroy {
 
     const post: Post = {
       id: this.post.id,
-      title,
-      description,
+      name:this.post.name,
+      sensorModel:this.post.sensorModel,
+      startPoint:this.post.startPoint,
+      endPoint:this.post.endPoint,
+      sensorType:this.post.sensorType,
+      modelUnit:this.post.modelUnit,
+      locations:this.post.locations,
+      description:this.post.description
     };
 
     //dispatch the action

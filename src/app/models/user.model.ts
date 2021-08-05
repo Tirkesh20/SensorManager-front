@@ -1,10 +1,11 @@
 export class User {
   constructor(
     private token: string,
-    private localId: string,
+    private roles:string[]
   ) {}
 
   get userToken() {
     return this.token;
   }
+
 }

@@ -1,8 +1,8 @@
 import {
   setLoadingSpinner,
   setErrorMessage,
-} from './../../store/Shared/shared.actions';
-import { AuthService } from './../../services/auth.service';
+} from '../../store/Shared/shared.actions';
+import { AuthService } from '../../services/auth.service';
 import { exhaustMap, map, catchError, tap, mergeMap } from 'rxjs/operators';
 import {
   autoLogin,
@@ -16,9 +16,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import {User} from '../../models/user.model';
 
 @Injectable()
 export class AuthEffects {
+  private roles: string[];
   constructor(
     private actions$: Actions,
     private authService: AuthService,
@@ -32,10 +34,11 @@ export class AuthEffects {
       exhaustMap((action) => {
         return this.authService.login(action.username, action.password).pipe(
           map((data) => {
+            this.authService.saveToken(data.accessToken)
             this.store.dispatch(setLoadingSpinner({ status: false }));
             this.store.dispatch(setErrorMessage({ message: '' }));
-            const user = this.authService.formatUser(data);
-            this.authService.setUserInLocalStorage(user);
+            this.authService.saveUser(data);
+            const user= new User(data.accessToken,this.authService.getUserFromLocalStorage().roles)
             return loginSuccess({ user, redirect: true });
           }),
           catchError((errResp) => {

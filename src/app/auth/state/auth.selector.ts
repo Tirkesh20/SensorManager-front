@@ -8,6 +8,11 @@ export const isAuthenticated = createSelector(getAuthState, (state) => {
   return !!state.user;
 });
 
+
+
 export const getToken = createSelector(getAuthState, (state) => {
   return state.user ? state.user.userToken : null;
 });
+
+// export const getRole = createSelector(getAuthState, (state) => {
+//   return state.user? state.user.userRole:null})

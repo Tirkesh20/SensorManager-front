@@ -1,17 +1,20 @@
-import { Post } from './../models/posts.model';
+import { Post } from '../models/posts.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
+
+  private apiServerUrl=environment.apiBaseUrl;
   constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
     return this.http
-      .get<Post[]>(`https://vue-completecourse.firebaseio.com/posts.json`)
+      .get<Post[]>('http://localhost:8080/sensor/all')
       .pipe(
         map((data) => {
           const posts: Post[] = [];
@@ -23,32 +26,22 @@ export class PostsService {
       );
   }
 
-  addPost(post: Post): Observable<{ name: string }> {
-    return this.http.post<{ name: string }>(
-      `https://vue-completecourse.firebaseio.com/posts.json`,
+  addPost(post: Post): Observable<Post> {
+    return this.http.post<Post >(
+      `${this.apiServerUrl}/sensor/add`,
       post
     );
   }
 
   updatePost(post: Post) {
-    const postData = {
-      [post.id]: { title: post.title, description: post.description },
-    };
-    return this.http.patch(
-      `https://vue-completecourse.firebaseio.com/posts.json`,
-      postData
-    );
+    return this.http.post<Post>(`${this.apiServerUrl}/sensor/add`, post);
   }
 
-  deletePost(id: string) {
-    return this.http.delete(
-      `https://vue-completecourse.firebaseio.com/posts/${id}.json`
-    );
+  deletePost(id: number) {
+    return this.http.delete<void>(`${this.apiServerUrl}/sensor/delete/${id}`);
   }
 
-  getPostById(id: string): Observable<Post> {
-    return this.http.get<Post>(
-      `https://vue-completecourse.firebaseio.com/posts/${id}.json`
-    );
+  getPostById(id: number): Observable<Post> {
+   return this.http.get<Post>('${this.apiServerUrl}/sensor/find/${id}')
   }
 }

@@ -7,11 +7,13 @@ import { PostsListComponent } from './posts-list/posts-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './state/posts.reducer';
 import { SinglePostComponent } from './single-post/single-post.component';
-
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {Ng2OrderModule} from 'ng2-order-pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 const routes: Routes = [
   {
     path: '',
@@ -29,6 +31,10 @@ const routes: Routes = [
   declarations: [PostsListComponent, AddPostComponent, EditPostComponent, SinglePostComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    Ng2SearchPipeModule,
+    Ng2OrderModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature(POST_STATE_NAME, postsReducer),

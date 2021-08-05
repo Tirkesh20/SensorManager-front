@@ -1,9 +1,9 @@
 import { setLoadingSpinner } from '../../store/Shared/shared.actions';
 import { loginStart } from '../state/auth.actions';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +15,9 @@ export class LoginComponent implements OnInit {
     username:null,
     password:null
   };
-  errorMessage = 'login failed';
-  isLoginFailed: true;
-  constructor(private store: Store<AppState>) {}
+
+
+  constructor(private authService:AuthService,private store: Store<AppState>) {}
 
   ngOnInit(): void {
 

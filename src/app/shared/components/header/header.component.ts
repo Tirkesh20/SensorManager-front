@@ -1,5 +1,4 @@
-import { AuthService } from './../../../services/auth.service';
-import { isAuthenticated } from './../../../auth/state/auth.selector';
+import { isAuthenticated } from '../../../auth/state/auth.selector';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/store/app.state';

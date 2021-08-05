@@ -10,25 +10,22 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
-export class AuthTokenInterceptor implements HttpInterceptor {
-  constructor(private store: Store<AppState>) {}
+export class Interceptor implements HttpInterceptor {
+  constructor(private store: Store<AppState>,private services:AuthService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return this.store.select(getToken).pipe(
-      take(1),
-      exhaustMap((token) => {
-        if (!token) {
-          return next.handle(req);
-        }
-        let modifiedReq = req.clone({
-          params: req.params.append('auth', token),
-        });
-        return next.handle(modifiedReq);
-      })
-    );
+    let authReq = req;
+    const token = this.services.getToken();
+    if (token != null) {
+      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+    }
+    return next.handle(authReq);
   }
 }

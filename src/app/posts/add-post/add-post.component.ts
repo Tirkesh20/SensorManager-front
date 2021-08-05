@@ -45,9 +45,15 @@ export class AddPostComponent implements OnInit {
     if (!this.postForm.valid) {
       return;
     }
-
     const post: Post = {
-      title: this.postForm.value.title,
+      id:this.postForm.value,
+      name:this.postForm.value.name,
+      sensorModel:this.postForm.value,
+      startPoint:this.postForm.value,
+      endPoint:this.postForm.value,
+      sensorType:this.postForm.value,
+      modelUnit:this.postForm.value,
+      locations:this.postForm.value,
       description: this.postForm.value.description,
     };
 
