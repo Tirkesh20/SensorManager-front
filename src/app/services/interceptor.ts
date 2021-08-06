@@ -1,6 +1,4 @@
-import { exhaustMap, take } from 'rxjs/operators';
-import { getToken } from './../auth/state/auth.selector';
-import { AppState } from './../store/app.state';
+import { AppState } from '../store/app.state';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import {
@@ -16,13 +14,13 @@ const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-  constructor(private store: Store<AppState>,private services:AuthService) {}
+  constructor(private store: Store<AppState>,private service:AuthService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let authReq = req;
-    const token = this.services.getToken();
+    const token = this.service.getToken();
     if (token != null) {
       authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
     }

@@ -1,4 +1,3 @@
-import {User} from '../models/user.model';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -31,13 +30,6 @@ export class AuthService {
     return window.sessionStorage.getItem(TOKEN_KEY);
   }
 
-
-  formatUser(data: any) {
-    return new User(
-      data.idToken,
-      data.localId,
-    );
-  }
 
   getErrorMessage(message: string) {
     switch (message) {
@@ -75,6 +67,5 @@ export class AuthService {
   logout() {
     sessionStorage.removeItem('auth-user');
     sessionStorage.removeItem('auth-token');
-
   }
 }

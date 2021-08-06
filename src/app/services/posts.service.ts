@@ -34,7 +34,7 @@ export class PostsService {
   }
 
   updatePost(post: Post) {
-    return this.http.post<Post>(`${this.apiServerUrl}/sensor/add`, post);
+    return this.http.put<Post>(`${this.apiServerUrl}/sensor/add`, post);
   }
 
   deletePost(id: number) {
@@ -42,6 +42,6 @@ export class PostsService {
   }
 
   getPostById(id: number): Observable<Post> {
-   return this.http.get<Post>('${this.apiServerUrl}/sensor/find/${id}')
+   return this.http.get<Post>('http://localhost:8080/sensor/find/'+id);
   }
 }

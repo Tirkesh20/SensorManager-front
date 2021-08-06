@@ -1,10 +1,13 @@
 export class User {
-  constructor(
-    private token: string,
-    private roles:string[]
-  ) {}
+  private token: any;
+  private roles:string[];
 
-  get userToken() {
+  constructor(ss: any, roles:string[]) {
+    this.token=ss;
+    this.roles=roles;
+  }
+
+  get userToken() :any{
     return this.token;
   }
 
