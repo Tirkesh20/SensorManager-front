@@ -1,38 +1,54 @@
-<div class="row my-4">
-  <div class="col-md-12">
-    <h3>Add Post</h3>
-    <hr />
-    <form [formGroup]="postForm" (ngSubmit)="onAddPost()">
-      <div class="mb-3">
-        <label>Title</label>
-        <input type="text" class="form-control" formControlName="title" />
-
-        <div
-          *ngIf="postForm.get('title').touched && !postForm.get('title').valid"
-        >
-          <div *ngIf="postForm.get('title').errors.required">
-            Title is required
-          </div>
-          <div *ngIf="postForm.get('title').errors.minlength">
-            Title should be minimum 6 characters
-          </div>
+<form [formGroup]="form" class="normal-form" >
+  <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="control-container">
+        <input type="hidden" formControlName="$key" >
+        <mat-form-field>
+          <input formControlName="name" matInput="Name" placeholder="Enter Name">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="sensorModel" matInput="Model" placeholder="SensorModel">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="startPoint" matInput="s" placeholder="Start Point">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="endPoint" matInput="e" placeholder="End Point">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="locations" matInput="location" placeholder="Location">
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+    <div class="control-container">
+      <mat-form-field>
+        <div>
+        <mat-select formControlName="sensorType" placeholder="Type">
+          <mat-option>none</mat-option>
+          <ng-container *ngFor="let type of types">
+          <mat-option value="{{type.id}}">{{type.value}} </mat-option>
+          </ng-container>
+        </mat-select>
         </div>
+        <div>
+        <mat-select formControlName="modelUnit" placeholder="Model">
+          <mat-option>none</mat-option>
+          <ng-container *ngFor="let type of types">
+            <mat-option value="{{type.id}}">{{type.value}} </mat-option>
+          </ng-container>
+        </mat-select>
+        </div>
+      </mat-form-field>
       </div>
-      <div class="mb-3">
-        <label>Description</label>
-        <textarea class="form-control" formControlName="description"></textarea>
-        <div>{{ showDescriptionErrors() }}</div>
-      </div>
-
-      <div class="my-3">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="!postForm.valid"
-        >
-          Add Post
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
+<!--name: string;-->
+<!--sensorModel:string;-->
+<!--startPoint:number;-->
+<!--endPoint:number;-->
+<!--sensorType:string;-->
+<!--modelUnit:string;-->
+<!--locations:string;-->
+<!--description:string;-->

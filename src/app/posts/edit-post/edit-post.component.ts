@@ -50,8 +50,6 @@ export class EditPostComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const title = this.postForm.value.title;
-    const description = this.postForm.value.description;
 
     const post: Post = {
       id: this.post.id,

@@ -1,12 +1,13 @@
 <div class="row">
   <div class="col-md-8">
 <nav class="navbar">
-  <input class="form-control" type="text" placeholder="name" [(ngModel)]="name" (ngModelChange)="search()"
+  <input class="form-control" type="text" placeholder="name" [(ngModel)]="name"
          placeholder="enter name to search"/>
 </nav>
     <table class="table table-bordered" *ngIf="posts | async as postsData">
       <thead>
         <tr>
+          <th> </th>
           <th>Name</th>
           <th>Model</th>
           <th>Type</th>
@@ -16,37 +17,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let post of postsData">
+        <tr *ngFor="let post of postsData |postsFilter:name">
+          <td>  <a href="" class="btn btn-primary" [routerLink]="['edit', post.id]">Update </a></td>
           <td>{{ post.name }}</td>
+
           <td>{{ post.sensorModel }}</td>
 
           <td>{{ post.sensorType }}</td>
 
-          <td>{{ post.startPoint }}{{post.endPoint}}</td>
+          <td>{{ post.startPoint }}-{{post.endPoint}}</td>
 
           <td>{{ post.modelUnit }}</td>
 
           <td>{{ post.locations }}</td>
-
-          <td style="word-break: break-all">{{ post.sensorModel }}</td>
-          <td>
-            <a href="" class="btn btn-primary" [routerLink]="['edit', post.id]"
-              >Update </a
-            >&nbsp;
-            <button class="btn btn-danger" (click)="onDeletePost(post.id)">
-              Delete</button
-            >&nbsp;
-            <a href="" class="btn btn-info" [routerLink]="['details', post.id]"
-              >Details
-            </a>
+          <td>&nbsp;
+<!--            <span class="material-icons-round" (click)="onDeletePost(post.id)">clear</span>-->
+            <button class="btn btn-danger" (click)="onDeletePost(post.id)">Delete</button>&nbsp;
           </td>
         </tr>
       </tbody>
     </table>
     <div>
-      <a href="#" class="btn btn-primary" [routerLink]="['/posts/add']"
-      >Add Post</a
-      >
+      <a href="#" class="btn btn-primary" [routerLink]="['/posts/add']">Add Post</a>
     </div>
   </div>
 
