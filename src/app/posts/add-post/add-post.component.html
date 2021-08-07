@@ -1,19 +1,15 @@
-<form [formGroup]="form" class="normal-form" >
+<form [formGroup]="form" class="normal-form" (submit)="onAddPost()">
   <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile>
       <div class="control-container">
-        <input type="hidden" formControlName="$key" >
+        <input type="hidden" formControlName="id" >
         <mat-form-field>
-          <input formControlName="name" matInput="Name" placeholder="Enter Name">
+          <input formControlName="name" matInput="Name" placeholder=" Name*">
+          <mat-error>required</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input formControlName="sensorModel" matInput="Model" placeholder="SensorModel">
-        </mat-form-field>
-        <mat-form-field>
-          <input formControlName="startPoint" matInput="s" placeholder="Start Point">
-        </mat-form-field>
-        <mat-form-field>
-          <input formControlName="endPoint" matInput="e" placeholder="End Point">
+          <input formControlName="sensorModel" matInput="Model" placeholder="Model*">
+          <mat-error>required</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input formControlName="locations" matInput="location" placeholder="Location">
@@ -21,25 +17,47 @@
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
-    <div class="control-container">
-      <mat-form-field>
-        <div>
+      <div class="control-container">
+        <mat-form-field>
         <mat-select formControlName="sensorType" placeholder="Type">
           <mat-option>none</mat-option>
           <ng-container *ngFor="let type of types">
           <mat-option value="{{type.id}}">{{type.value}} </mat-option>
           </ng-container>
         </mat-select>
-        </div>
-        <div>
+        </mat-form-field>
+        <mat-form-field>
         <mat-select formControlName="modelUnit" placeholder="Model">
           <mat-option>none</mat-option>
-          <ng-container *ngFor="let type of types">
+          <ng-container *ngFor="let type of units">
             <mat-option value="{{type.id}}">{{type.value}} </mat-option>
           </ng-container>
-        </mat-select>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="startPoint" placeholder="startPoint">
+            <mat-option>none</mat-option>
+            <ng-container *ngFor="let type of nums">
+              <mat-option value="{{type.id}}">{{type.value}} </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="endPoint" placeholder="number">
+            <mat-option>none</mat-option>
+            <ng-container *ngFor="let type of nums">
+              <mat-option value="{{type.id}}">{{type.value}} </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <div class="mb-3">
+          <label>Description</label>
+          <textarea class="form-control" formControlName="description"></textarea>
         </div>
-      </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add/Edit</button>
+          <button mat-raised-button color="warn" (click)="back()">Clear</button>
+        </div>
       </div>
     </mat-grid-tile>
   </mat-grid-list>

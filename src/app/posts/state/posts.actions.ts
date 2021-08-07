@@ -1,5 +1,5 @@
 import { Update } from '@ngrx/entity';
-import { Post } from './../../models/posts.model';
+import { Post } from '../../models/posts.model';
 import { createAction, props } from '@ngrx/store';
 
 export const ADD_POST_ACTION = '[posts page] add post';
@@ -11,7 +11,9 @@ export const DELETE_POST_SUCCESS = '[posts page] delete post success';
 export const LOAD_POSTS = '[posts page] load posts';
 export const LOAD_POSTS_SUCCESS = '[posts page] load posts success';
 
-export const addPost = createAction(ADD_POST_ACTION, props<{ post: Post }>());
+export const addPost = createAction(ADD_POST_ACTION, props<{ post: {name: string;sensorModel: string;endPoint: number;
+                                                                   modelUnit: string; sensorType: string;  startPoint: number;
+                                                                                      description: string; locations: string; } }>());
 export const addPostSuccess = createAction(
   ADD_POST_SUCCESS,
   props<{ post: Post }>()

@@ -1,1 +1,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.control-container{
+  width:100%;
+  padding:5%;
+}
+

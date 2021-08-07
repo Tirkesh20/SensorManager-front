@@ -1,48 +1,51 @@
-<div class="row">
-  <div class="col-md-8">
-<nav class="navbar">
-  <input class="form-control" type="text" placeholder="name" [(ngModel)]="name"
-         placeholder="enter name to search"/>
-</nav>
-    <table class="table table-bordered" *ngIf="posts | async as postsData">
-      <thead>
-        <tr>
-          <th> </th>
-          <th>Name</th>
-          <th>Model</th>
-          <th>Type</th>
-          <th>Range</th>
-          <th>Unit</th>
-          <th>Location</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let post of postsData |postsFilter:name">
-          <td>  <a href="" class="btn btn-primary" [routerLink]="['edit', post.id]">Update </a></td>
-          <td>{{ post.name }}</td>
-
-          <td>{{ post.sensorModel }}</td>
-
-          <td>{{ post.sensorType }}</td>
-
-          <td>{{ post.startPoint }}-{{post.endPoint}}</td>
-
-          <td>{{ post.modelUnit }}</td>
-
-          <td>{{ post.locations }}</td>
-          <td>&nbsp;
-<!--            <span class="material-icons-round" (click)="onDeletePost(post.id)">clear</span>-->
-            <button class="btn btn-danger" (click)="onDeletePost(post.id)">Delete</button>&nbsp;
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div>
-      <a href="#" class="btn btn-primary" [routerLink]="['/posts/add']">Add Post</a>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <router-outlet></router-outlet>
-  </div>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="listData">
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="Model">
+      <mat-header-cell *matHeaderCellDef>Model</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.sensorModel}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="Type">
+      <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.sensorType}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="Range">
+      <mat-header-cell *matHeaderCellDef>Range</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.startPoint}}-{{element.endPoint}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="Unit">
+      <mat-header-cell *matHeaderCellDef>Unit</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.modelUnit}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="Location">
+      <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.locations}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="update">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button><mat-icon></mat-icon></button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button><span class="material-icons-round">clear</span></button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+    <mat-row *matRowDef="let row;columns:displayColumns;"></mat-row>
+    <div></div>
+  </mat-table>
 </div>

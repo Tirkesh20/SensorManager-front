@@ -1,9 +1,9 @@
 import { addPost } from '../state/posts.actions';
-import { Post } from '../../models/posts.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-post',
@@ -12,28 +12,43 @@ import { AppState } from 'src/app/store/app.state';
 })
 export class AddPostComponent implements OnInit {
   form: FormGroup;
-
+  startPoint:number;
   types=[
-    {id: 3,value:'C'},
-    {id: 2,value:'%'},
-    {id: 3,value:'temp'}
+    {id:'PRESSURE',value:'Pressure'},
+    {id: 'VOLTAGE',value:'Voltage'},
+    {id: 'TEMPERATURE',value:'Temperature'},
+    {id: 'HUMIDITY',value:'Humidity'},
   ]
-  constructor(private store: Store<AppState>) {
-    this.form=new FormGroup({
-      $key:new FormControl(null),
-      name:new FormControl('') ,
-      sensorModel:new FormControl(''),
-      startPoint:new FormControl(''),
-      endPoint:new FormControl(''),
-      sensorType:new FormControl(0),
-      modelUnit:new FormControl(0),
-      locations:new FormControl(''),
-      description:new FormControl(''),
-    })
+  units=[
+    {id:'BAR',value:'bar'},
+    {id: 'VOLTAGE',value:'Voltage'},
+    {id: 'CELSIUS',value:'*C'},
+    {id: 'PERCENT',value:'%'}
+  ]
+  nums=[
+    {id:1,value:1},
+    {id: 2,value:2},
+    {id: 3,value:3},
+    {id: 4,value:4}
+  ]
+  constructor(private store: Store<AppState>,private router:Router) {
   }
 
   ngOnInit(): void {
-
+  this.initForm();
+  }
+  initForm(){
+    this.form=new FormGroup({
+      id:new FormControl(null),
+      name:new FormControl('',[Validators.required,Validators.maxLength(30)]) ,
+      sensorModel:new FormControl('',[Validators.required,Validators.maxLength(15)]),
+      startPoint:new FormControl('',Validators.required),
+      endPoint:new FormControl('',[Validators.required]),
+      sensorType:new FormControl(0,),
+      modelUnit:new FormControl(0,Validators.required),
+      locations:new FormControl('',[Validators.maxLength(40)]),
+      description:new FormControl('',[Validators.maxLength(200)]),
+    })
   }
 
   showDescriptionErrors() {
@@ -53,18 +68,20 @@ export class AddPostComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const post: Post = {
-      id:this.form.value,
+    const post:{ name: string;sensorModel: string  ; startPoint: number;endPoint: number; sensorType: string;modelUnit: string;   locations: string; description: string;}= {
       name:this.form.value.name,
-      sensorModel:this.form.value,
-      startPoint:this.form.value,
-      endPoint:this.form.value,
-      sensorType:this.form.value,
-      modelUnit:this.form.value,
-      locations:this.form.value,
+      sensorModel:this.form.value.sensorModel,
+      startPoint:this.form.value.startPoint,
+      endPoint:this.form.value.endPoint,
+      sensorType:this.form.value.sensorType,
+      modelUnit:this.form.value.modelUnit,
+      locations:this.form.value.locations,
       description: this.form.value.description
     };
-
     this.store.dispatch(addPost({ post }));
+  }
+
+  back() {
+    this.router.navigate(['posts']);
   }
 }

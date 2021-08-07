@@ -2,7 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 .control-container{
   width:100%;
-
+  margin-left:20px;
 }
 
 /*.add-bottom-container{*/

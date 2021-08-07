@@ -9,12 +9,14 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatOption} from '@angular/material/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
   imports: [
     MatButtonModule,
+    MatTableModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
@@ -23,16 +25,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     MatSelectModule,
     MatGridListModule,
+    MatSnackBarModule,
+
   ],
   exports: [
+    MatTableModule,
     MatButtonModule,
+    MatIconModule,
     MatMenuModule,
     MatToolbarModule,
-    MatIconModule,
     MatCardModule,
     MatGridListModule,
     MatSelectModule,
     MatOption,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule {}

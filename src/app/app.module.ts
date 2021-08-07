@@ -5,7 +5,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './store/app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -16,6 +15,8 @@ import { environment } from 'src/environments/environment';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import {Interceptor} from './services/interceptor';
+import {MaterialModule} from './posts/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {Interceptor} from './services/interceptor';
     LoadingSpinnerComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

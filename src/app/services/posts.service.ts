@@ -26,8 +26,8 @@ export class PostsService {
       );
   }
 
-  addPost(post: Post): Observable<Post> {
-    return this.http.post<Post >(
+  addPost(post: {name: string;sensorModel: string  ; startPoint: number;endPoint: number; sensorType: string;modelUnit: string;   locations: string; description: string;  }): Observable<any> {
+    return this.http.post<Post>(
       `${this.apiServerUrl}/sensor/add`,
       post
     );

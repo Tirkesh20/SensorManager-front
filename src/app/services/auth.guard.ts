@@ -10,11 +10,12 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { isAuthenticated } from '../auth/state/auth.selector';
+import { isAuthenticated, getToken } from '../auth/state/auth.selector';
+import {AuthService} from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router,private auth:AuthService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -24,9 +25,19 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.store.select(isAuthenticated).pipe(
-      map((authenticate) => {
-        if (!authenticate) {
+    // return this.auth.getToken().pipe(
+    //   map((getToken)=>{
+    //     if (getToken==undefined||getToken==''){
+    //       return this.router.createUrlTree(['auth']);
+    //     }else {
+    //       return this.router.createUrlTree(['posts']);
+    //     }
+    //   })
+    // )
+
+    return this.store.select(getToken).pipe(
+      map((getToken) => {
+        if (getToken == undefined||getToken==''){
           return this.router.createUrlTree(['auth']);
         }
         return true;

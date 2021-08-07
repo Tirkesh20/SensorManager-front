@@ -30,13 +30,15 @@ import {
 } from '@ngrx/router-store';
 import { of } from 'rxjs';
 import { dummyAction } from 'src/app/auth/state/auth.actions';
+import {NotificationService} from '../../shared/notification.component';
 
 @Injectable()
 export class PostsEffects {
   constructor(
     private actions$: Actions,
     private postsService: PostsService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private notificationsService:NotificationService
   ) {}
 
   loadPosts$ = createEffect(() => {
@@ -65,6 +67,7 @@ export class PostsEffects {
         return this.postsService.addPost(action.post).pipe(
           map((data) => {
             const post = { ...action.post, id: data.id };
+            this.notificationsService.success('added successfully')
             return addPostSuccess({ post });
           })
         );

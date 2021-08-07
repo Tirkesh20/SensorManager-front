@@ -1,0 +1,16 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.control-container{
+  width:100%;
+}
+
+.container-container> *{
+  width: 100%;
+}
+.add-bottom-container{
+  padding-bottom:10px;
+}
+
+.button-row button{
+  margin:20px;
+}
+
