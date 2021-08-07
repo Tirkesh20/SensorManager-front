@@ -5,3 +5,9 @@
   padding:5%;
 }
 
+mat-footer-row mat-footer-cell{
+  justify-content:center;
+  font-style:italic;
+}
+
+

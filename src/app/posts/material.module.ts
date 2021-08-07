@@ -11,6 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatOption} from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import {MatTableModule} from '@angular/material/table';
     MatSelectModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatPaginatorModule,
+    MatSortModule,
 
   ],
   exports: [
@@ -38,7 +42,9 @@ import {MatTableModule} from '@angular/material/table';
     MatGridListModule,
     MatSelectModule,
     MatOption,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatSortModule,
   ]
 })
 export class MaterialModule {}

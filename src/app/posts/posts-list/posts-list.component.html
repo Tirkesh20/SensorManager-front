@@ -1,51 +1,68 @@
+<div class="search-div">
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput [(ngModel)]="searchTag" placeholder="Search..." autocomplete="off" (keyup)="onAppleFilter()" >
+      <button mat-button matSuffix mat-icon-button aria-label="CLear" *ngIf="searchTag" (click)="onClear()">
+        <span class="material-icons">&#xe14c;</span>
+      </button>
+      <button mat-button matSuffix mat-icon-button aria-label="Search">
+        Search
+      </button>
+  </mat-form-field>
+</div>
+
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="listData">
+  <mat-table [dataSource]="listData" matSort>
     <ng-container matColumnDef="Name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="Model">
-      <mat-header-cell *matHeaderCellDef>Model</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.sensorModel}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="Type">
-      <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.sensorType}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="Range">
-      <mat-header-cell *matHeaderCellDef>Range</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Range</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.startPoint}}-{{element.endPoint}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="Unit">
-      <mat-header-cell *matHeaderCellDef>Unit</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.modelUnit}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="Location">
-      <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.locations}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="update">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-header-cell *matHeaderCellDef ></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button><mat-icon></mat-icon></button>
+        <span class="material-icons">&#xe3c9;</span>
       </mat-cell>
       <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button><span class="material-icons-round">clear</span></button>
+      <span class="material-icons">&#xe14c;</span>
       </mat-cell>
-      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef [attr.aria-colspan]="6">
+      loading data...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="empty">
+      <mat-footer-cell *matFooterCellDef [attr.aria-colspan]="6">
+        No data
+      </mat-footer-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
     <mat-row *matRowDef="let row;columns:displayColumns;"></mat-row>
-    <div></div>
+<!--    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>-->
   </mat-table>
+   <span class="material-icons">&#xe146;</span>
+  <mat-paginator [pageSize]="4" showFirstLastButtons></mat-paginator>
 </div>
