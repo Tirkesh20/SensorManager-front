@@ -10,7 +10,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { isAuthenticated, getToken } from '../auth/state/auth.selector';
+import { isAdmin, getToken } from '../auth/state/auth.selector';
 import {AuthService} from './auth.service';
 
 @Injectable({ providedIn: 'root' })

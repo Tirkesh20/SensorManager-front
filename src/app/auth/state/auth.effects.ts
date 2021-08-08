@@ -38,7 +38,7 @@ export class AuthEffects {
             this.store.dispatch(setLoadingSpinner({ status: false }));
             this.store.dispatch(setErrorMessage({ message: '' }));
             this.authService.saveUser(data);
-            const user= new User(data.accessToken,this.authService.getUserFromLocalStorage().roles)
+            const user= new User(data.accessToken,this.authService.getUserFromLocalStorage().roles,true)
             return loginSuccess({ user, redirect: true });
           }),
           catchError((errResp) => {

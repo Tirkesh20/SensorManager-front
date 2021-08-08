@@ -34,7 +34,7 @@ export class PostsService {
   }
 
   updatePost(post: Post) {
-    return this.http.put<Post>(`${this.apiServerUrl}/sensor/add`, post);
+    return this.http.put<Post>(`${this.apiServerUrl}/sensor/update`, post);
   }
 
   deletePost(id: number) {

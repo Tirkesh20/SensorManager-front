@@ -17,6 +17,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import {Interceptor} from './services/interceptor';
 import {MaterialModule} from './posts/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AddPostComponent} from './posts/add-post/add-post.component';
+import {PopulateService} from './posts/populate.service';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },AddPostComponent,
   ],
   bootstrap: [AppComponent],
+  entryComponents:[AddPostComponent]
 })
 export class AppModule {}

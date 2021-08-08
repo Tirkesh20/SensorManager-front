@@ -26,6 +26,11 @@ export class AuthService {
     );
   }
 
+  isAdmin():boolean{
+    return false;
+  }
+ const
+
   public getToken(): any {
     return window.sessionStorage.getItem(TOKEN_KEY);
   }
@@ -48,6 +53,7 @@ export class AuthService {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
+
 
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);

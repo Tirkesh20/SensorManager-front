@@ -21,4 +21,6 @@ export class AppComponent implements OnInit {
     this.errorMessage = this.store.select(getErrorMessage);
     this.store.dispatch(autoLogin());
   }
+
+
 }

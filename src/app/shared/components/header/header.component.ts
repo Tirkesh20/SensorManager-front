@@ -1,4 +1,4 @@
-import { isAuthenticated } from '../../../auth/state/auth.selector';
+import { isAdmin } from '../../../auth/state/auth.selector';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/store/app.state';
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.isAuthenticated = this.store.select(isAuthenticated);
+    this.isAuthenticated = this.store.select(isAdmin);
   }
 
   onLogout(event: Event) {

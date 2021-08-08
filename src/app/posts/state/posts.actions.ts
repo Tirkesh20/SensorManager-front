@@ -20,7 +20,7 @@ export const addPostSuccess = createAction(
 );
 export const updatePost = createAction(
   UPDATE_POST_ACTION,
-  props<{ post: Post }>()
+  props<{ post:Post}>()
 );
 
 export const updatePostSuccess = createAction(

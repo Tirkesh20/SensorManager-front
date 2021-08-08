@@ -1,9 +1,11 @@
-import { addPost } from '../state/posts.actions';
+import {addPost, updatePost} from '../state/posts.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { Router } from '@angular/router';
+import {MatDialogRef} from '@angular/material/dialog';
+import {PopulateService} from '../populate.service';
+import {Post} from '../../models/posts.model';
 
 @Component({
   selector: 'app-add-post',
@@ -31,57 +33,53 @@ export class AddPostComponent implements OnInit {
     {id: 3,value:3},
     {id: 4,value:4}
   ]
-  constructor(private store: Store<AppState>,private router:Router) {
+  constructor(private store: Store<AppState>,public dialogRef:MatDialogRef<AddPostComponent>,public service:PopulateService) {
   }
 
   ngOnInit(): void {
-  this.initForm();
-  }
-  initForm(){
-    this.form=new FormGroup({
-      id:new FormControl(null),
-      name:new FormControl('',[Validators.required,Validators.maxLength(30)]) ,
-      sensorModel:new FormControl('',[Validators.required,Validators.maxLength(15)]),
-      startPoint:new FormControl('',Validators.required),
-      endPoint:new FormControl('',[Validators.required]),
-      sensorType:new FormControl(0,),
-      modelUnit:new FormControl(0,Validators.required),
-      locations:new FormControl('',[Validators.maxLength(40)]),
-      description:new FormControl('',[Validators.maxLength(200)]),
-    })
-  }
-
-  showDescriptionErrors() {
-    const descriptionForm = this.form.get('description');
-    if (descriptionForm.touched && !descriptionForm.valid) {
-      if (descriptionForm.errors.required) {
-        return 'Description is required';
-      }
-
-      if (descriptionForm.errors.minlength) {
-        return 'Description should be of minimum 10 characters length';
-      }
-    }
+    this.form=this.service.form;
   }
 
   onAddPost() {
     if (!this.form.valid) {
       return;
     }
-    const post:{ name: string;sensorModel: string  ; startPoint: number;endPoint: number; sensorType: string;modelUnit: string;   locations: string; description: string;}= {
-      name:this.form.value.name,
-      sensorModel:this.form.value.sensorModel,
-      startPoint:this.form.value.startPoint,
-      endPoint:this.form.value.endPoint,
-      sensorType:this.form.value.sensorType,
-      modelUnit:this.form.value.modelUnit,
-      locations:this.form.value.locations,
-      description: this.form.value.description
-    };
-    this.store.dispatch(addPost({ post }));
+
+    if (!this.service.form.get('id').value){
+      const post:{ name: string;sensorModel: string  ; startPoint: number;endPoint: number; sensorType: string;modelUnit: string;   locations: string; description: string;}= {
+        name:this.form.value.name,
+        sensorModel:this.form.value.sensorModel,
+        startPoint:this.form.value.startPoint,
+        endPoint:this.form.value.endPoint,
+        sensorType:this.form.value.sensorType,
+        modelUnit:this.form.value.modelUnit,
+        locations:this.form.value.locations,
+        description: this.form.value.description
+      };
+      this.store.dispatch(addPost({ post }));
+    }else{
+      const post:Post= {
+        id:this.form.value.id,
+        name:this.form.value.name,
+        sensorModel:this.form.value.sensorModel,
+        startPoint:this.form.value.startPoint,
+        endPoint:this.form.value.endPoint,
+        sensorType:this.form.value.sensorType,
+        modelUnit:this.form.value.modelUnit,
+        locations:this.form.value.locations,
+        description: this.form.value.description
+      };
+      this.store.dispatch(updatePost({ post }));
+    }
+    this.back();
+
   }
 
   back() {
-    this.router.navigate(['posts']);
+    this.service.form.reset();
+    this.dialogRef.close();
+    this.service.initForm();
   }
+
+
 }
