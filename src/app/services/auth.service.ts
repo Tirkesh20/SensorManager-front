@@ -17,6 +17,7 @@ const httpOptions ={
 })
 export class AuthService {
   private AUTH_API=environment.apiBaseUrl;
+  private roles:string[];
   constructor(private http: HttpClient, private store: Store<AppState>) {}
 
   login(username: string, password: string): Observable<any> {
@@ -27,8 +28,11 @@ export class AuthService {
   }
 
   isAdmin():boolean{
-  if(this.getUserFromLocalStorage().roles.length > 1){
+  if(this.getUserFromLocalStorage().roles.includes('ROLE_ADMIN')){
+    console.log(this.getUserFromLocalStorage().roles)
     return true
+  }else {
+    return false;
   }
   }
 

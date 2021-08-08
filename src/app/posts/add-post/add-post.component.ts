@@ -27,12 +27,7 @@ export class AddPostComponent implements OnInit {
     {id: 'CELSIUS',value:'*C'},
     {id: 'PERCENT',value:'%'}
   ]
-  nums=[
-    {id:1,value:1},
-    {id: 2,value:2},
-    {id: 3,value:3},
-    {id: 4,value:4}
-  ]
+  nums=[]
   constructor(private store: Store<AppState>,public dialogRef:MatDialogRef<AddPostComponent>,public service:PopulateService) {
   }
 
