@@ -27,9 +27,11 @@ export class AuthService {
   }
 
   isAdmin():boolean{
-    return false;
+  if(this.getUserFromLocalStorage().roles.length > 1){
+    return true
   }
- const
+  }
+
 
   public getToken(): any {
     return window.sessionStorage.getItem(TOKEN_KEY);

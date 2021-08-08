@@ -27,7 +27,7 @@ export class PostsListComponent implements OnInit {
   displayColumns:string[]=['update','Name','Model','Type','Range','Unit','Location','delete'];
   p:number=1;
   count: Observable<number>;
-  constructor(private store: Store<AppState>,public dialog:MatDialog,public service:PopulateService,private authService:AuthService) {}
+  constructor(private store: Store<AppState>,public dialog:MatDialog,public service:PopulateService,public authService:AuthService) {}
 
   @ViewChild(MatSort)sort: MatSort;
   @ViewChild(MatPaginator)paginator: MatPaginator;
@@ -70,14 +70,9 @@ export class PostsListComponent implements OnInit {
     dialogConfig.width='50%';
     this.dialog.open(AddPostComponent,dialogConfig);
   }
-   isAdmin ():boolean {
-    return this.authService.isAdmin();
-
-  }
 
   onEdit(row) {
     this.service.populateForm(row);
-    console.log(this.isAdmin)
     const dialogConfig=new MatDialogConfig();
     dialogConfig.disableClose=true;
     dialogConfig.autoFocus=true;

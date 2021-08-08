@@ -39,14 +39,14 @@
     <ng-container matColumnDef="update">
       <mat-header-cell *matHeaderCellDef ></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <span class="material-icons" *ngIf="isAdmin()" (click)="onEdit(row)">&#xe3c9;</span>
+        <span class="material-icons" *ngIf="authService.isAdmin()" (click)="onEdit(row)">&#xe3c9;</span>
       </mat-cell>
       <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-      <span class="material-icons" *ngIf="isAdmin()" (click)="onDeletePost(row.id)">&#xe14c;</span>
+      <span class="material-icons" *ngIf="authService.isAdmin()" (click)="onDeletePost(row.id)">&#xe14c;</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="loading">
@@ -64,7 +64,7 @@
 <!--    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>-->
   </mat-table>
   <div >
-    <button mat-icon-button *ngIf="isAdmin()" (click)="onCreate()">Add Sensor</button>
+    <button mat-icon-button *ngIf="authService.isAdmin()" (click)="onCreate()">Add Sensor</button>
   <mat-paginator [pageSize]="4" showFirstLastButtons></mat-paginator>
   </div>
 </div>
