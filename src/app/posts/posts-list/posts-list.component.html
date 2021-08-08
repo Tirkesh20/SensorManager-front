@@ -30,7 +30,7 @@
     </ng-container>
     <ng-container matColumnDef="Unit">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.modelUnit}}</mat-cell>
+      <mat-cell *matCellDef="let element" >{{ element.modelUnit}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="Location">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
@@ -39,14 +39,18 @@
     <ng-container matColumnDef="update">
       <mat-header-cell *matHeaderCellDef ></mat-header-cell>
       <mat-cell *matCellDef="let row">
+        <button>
         <span class="material-icons" *ngIf="isAdmin()" (click)="onEdit(row)">&#xe3c9;</span>
+        </button>
       </mat-cell>
       <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-      <span class="material-icons" *ngIf="isAdmin()" (click)="onDeletePost(row.id)">&#xe14c;</span>
+        <button>
+        <span class="material-icons" *ngIf="isAdmin()" (click)="onDeletePost(row.id)">&#xe14c;</span>
+        </button>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="loading">
@@ -64,7 +68,7 @@
 <!--    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>-->
   </mat-table>
   <div >
-    <button mat-icon-button *ngIf="isAdmin()" (click)="onCreate()">Add Sensor</button>
+    <button class="kek"mat-raised-button color="primary" type="submit" *ngIf="isAdmin()" (submit)="onCreate()">Add Sensor</button>
   <mat-paginator [pageSize]="4" showFirstLastButtons></mat-paginator>
   </div>
 </div>

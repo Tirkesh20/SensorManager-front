@@ -33,8 +33,15 @@ export class AddPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.form=this.service.form;
+   this.activate();
   }
 
+  activate(): void {
+    let a=0;
+    for (let i = -99; i < 101; i++){
+      this.nums[a++]=i;
+    }
+  }
   onAddPost() {
     if (!this.form.valid) {
       return;

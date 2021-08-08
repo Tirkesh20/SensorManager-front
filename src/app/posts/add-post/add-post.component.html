@@ -36,18 +36,18 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select formControlName="startPoint" placeholder="startPoint">
+          <mat-select formControlName="startPoint" placeholder="from">
             <mat-option>none</mat-option>
             <ng-container *ngFor="let type of nums">
-              <mat-option value="{{type.id}}">{{type.value}} </mat-option>
+              <mat-option value="{{type}}">{{type}} </mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select formControlName="endPoint" placeholder="number">
+          <mat-select formControlName="endPoint" placeholder="to">
             <mat-option>none</mat-option>
             <ng-container *ngFor="let type of nums">
-              <mat-option value="{{type.id}}">{{type.value}} </mat-option>
+              <mat-option value="{{type}}">{{type}} </mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
